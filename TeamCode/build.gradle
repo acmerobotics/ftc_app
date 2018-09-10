@@ -13,3 +13,10 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+
+// Custom definitions may go here
+android {
+    sourceSets {
+        main.java.srcDirs += '../../rover-ruckus/src'
+    }
+}
