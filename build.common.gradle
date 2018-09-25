@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         applicationId 'com.qualcomm.ftcrobotcontroller'
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 21
 
         /**
@@ -94,6 +94,10 @@ android {
     sourceSets.main {
         jni.srcDirs = []
         jniLibs.srcDir rootProject.file('libs')
+    }
+
+    dexOptions {
+        jumboMode = true
     }
 }
 
