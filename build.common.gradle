@@ -99,6 +99,10 @@ android {
     dexOptions {
         jumboMode = true
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 repositories {

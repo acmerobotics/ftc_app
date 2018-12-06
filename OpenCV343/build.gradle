@@ -121,6 +121,10 @@ android {
             manifest.srcFile 'java/AndroidManifest.xml'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
