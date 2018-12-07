@@ -9,5 +9,4 @@ dependencies {
     implementation 'com.acmerobotics.roadrunner:core:0.2.0'
     implementation (name: 'tfod-release', ext:'aar')
     implementation (name: 'tensorflow-lite-0.0.0-nightly', ext:'aar')
->>>>>>> upstream/master
 }
