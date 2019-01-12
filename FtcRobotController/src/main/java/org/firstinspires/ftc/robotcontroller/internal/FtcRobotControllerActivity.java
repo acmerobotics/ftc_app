@@ -100,6 +100,7 @@ import com.qualcomm.robotcore.wifi.NetworkType;
 import org.firstinspires.ftc.ftccommon.external.SoundPlayingRobotMonitor;
 import org.firstinspires.ftc.ftccommon.internal.FtcRobotControllerWatchdogService;
 import org.firstinspires.ftc.ftccommon.internal.ProgramAndManageActivity;
+import org.firstinspires.ftc.robotcontroller.internal.configuration.OpModeConfigurationActivity;
 import org.firstinspires.ftc.robotcore.external.navigation.MotionDetection;
 import org.firstinspires.ftc.robotcore.internal.hardware.DragonboardLynxDragonboardIsPresentPin;
 import org.firstinspires.ftc.robotcore.internal.network.DeviceNameManager;
@@ -553,6 +554,11 @@ public class FtcRobotControllerActivity extends Activity
     }
     else if (id == R.id.action_exit_app) {
       finish();
+      return true;
+    }
+    else if (id == R.id.action_configure_opmode) {
+      Intent configIntent = new Intent(AppUtil.getDefContext(), OpModeConfigurationActivity.class);
+      startActivity(configIntent);
       return true;
     }
 

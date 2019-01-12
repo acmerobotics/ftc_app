@@ -51,6 +51,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <string name="about_menu_item">About</string>
   <string name="exit_menu_item">Exit</string>
 
+    <string name="configure_opmode_menu_item">OpMode Config</string>
   <!-- Toast messages -->
   <string name="toastWifiConfigurationComplete">Configuration Complete</string>
   <string name="toastRestartingRobot">Restarting Robot</string>
