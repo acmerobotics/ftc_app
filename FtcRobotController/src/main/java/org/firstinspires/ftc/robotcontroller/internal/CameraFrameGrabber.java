@@ -28,9 +28,11 @@ public class CameraFrameGrabber implements CameraBridgeViewBase.CvCameraViewList
     @Override
     public synchronized Mat onCameraFrame(Mat inputFrame) {
         frame = inputFrame;
-//        overlay = frame;
-        Log.i("opencv", "frame");
-        return overlay == null ? frame : overlay;
+        if (overlay == null) {
+            Log.i("opencv", "returning default frame");
+            return frame;
+        }
+        return overlay;
     }
 
     public synchronized Mat getFrame() {
