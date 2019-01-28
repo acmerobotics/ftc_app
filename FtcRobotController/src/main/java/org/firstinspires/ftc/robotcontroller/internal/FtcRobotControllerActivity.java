@@ -50,6 +50,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -84,6 +85,7 @@ import com.qualcomm.ftccommon.configuration.RobotConfigFile;
 import com.qualcomm.ftccommon.configuration.RobotConfigFileManager;
 import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.hardware.HardwareFactory;
+import com.qualcomm.hardware.logitech.LogitechGamepadF310;
 import com.qualcomm.robotcore.eventloop.EventLoopManager;
 import com.qualcomm.robotcore.eventloop.opmode.FtcRobotControllerServiceState;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -101,6 +103,7 @@ import org.firstinspires.ftc.ftccommon.external.SoundPlayingRobotMonitor;
 import org.firstinspires.ftc.ftccommon.internal.FtcRobotControllerWatchdogService;
 import org.firstinspires.ftc.ftccommon.internal.ProgramAndManageActivity;
 import org.firstinspires.ftc.robotcontroller.internal.configuration.OpModeConfigurationActivity;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraFrame;
 import org.firstinspires.ftc.robotcore.external.navigation.MotionDetection;
 import org.firstinspires.ftc.robotcore.internal.hardware.DragonboardLynxDragonboardIsPresentPin;
 import org.firstinspires.ftc.robotcore.internal.network.DeviceNameManager;
@@ -120,6 +123,11 @@ import org.firstinspires.ftc.robotcore.internal.ui.UILocation;
 import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo;
 import org.firstinspires.ftc.robotcore.internal.webserver.WebServer;
 import org.firstinspires.inspection.RcInspectionActivity;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -170,7 +178,33 @@ public class FtcRobotControllerActivity extends Activity
   protected WifiMuteStateMachine wifiMuteStateMachine;
   protected MotionDetection motionDetection;
 
-  protected class RobotRestarter implements Restarter {
+  private CameraBridgeViewBase cameraView;
+
+    public void onCameraViewStopped () {
+      Log.i("opencv", "camera view stopped");
+    }
+
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+      @Override
+      public void onManagerConnected(int status) {
+        switch (status) {
+          case LoaderCallbackInterface.SUCCESS:
+          {
+            Log.i("opencv", "OpenCV loaded successfully");
+            cameraView.enableView();
+            cameraView.setCvCameraViewListener(CameraFrameGrabber.getInstance());
+          } break;
+          default:
+          {
+            Log.i("opencv", "some sort of error");
+            super.onManagerConnected(status);
+          } break;
+        }
+      }
+    };
+
+
+    protected class RobotRestarter implements Restarter {
 
     public void requestRestart() {
       requestRobotRestart();
@@ -342,6 +376,9 @@ public class FtcRobotControllerActivity extends Activity
       initWifiMute(true);
     }
     FtcDashboard.start();
+
+    cameraView = (CameraBridgeViewBase) findViewById(R.id.cameraMonitorViewId);
+    cameraView.setVisibility(View.VISIBLE);
   }
 
   protected UpdateUI createUpdateUI() {
@@ -383,6 +420,7 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
+    OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, this, mLoaderCallback);
     RobotLog.vv(TAG, "onResume()");
   }
 
@@ -393,6 +431,7 @@ public class FtcRobotControllerActivity extends Activity
     if (programmingModeController.isActive()) {
       programmingModeController.stopProgrammingMode();
     }
+    if (cameraView != null) cameraView.disableView();
   }
 
   @Override
@@ -405,6 +444,7 @@ public class FtcRobotControllerActivity extends Activity
 
   @Override
   protected void onDestroy() {
+
     super.onDestroy();
     RobotLog.vv(TAG, "onDestroy()");
 
@@ -423,6 +463,8 @@ public class FtcRobotControllerActivity extends Activity
     RobotLog.cancelWriteLogcatToDisk();
 
     FtcDashboard.stop();
+
+    if (cameraView != null) cameraView.disableView();
   }
 
   protected void bindToService() {
