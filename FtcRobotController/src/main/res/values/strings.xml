@@ -68,5 +68,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </integer-array>
 
   <string name="packageName">@string/packageNameRobotController</string>
+    <string name="ALLIANCE_COLOR_RED">Red</string>
+    <string name="opmode_config_start_crater">Crater</string>
+    <string name="opmode_config_start_lander">Lander</string>
+    <string name="opmode_config_start">Start Location</string>
+    <string name="opmode_start_latched">Latched</string>
+    <string name="opmode_start_deployed">Deployed</string>
+    <string name="opmode_latched">Latched</string>
+    <string name="opmode_play_music">Play Music?</string>
+    <string name="opmode_sample_both">Sample Both</string>
 
 </resources>

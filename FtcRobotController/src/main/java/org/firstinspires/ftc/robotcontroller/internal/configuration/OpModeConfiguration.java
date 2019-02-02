@@ -15,6 +15,7 @@ public class OpModeConfiguration {
     public static final String PREFS_MATCH_NUMBER = "match_number";
     public static final String PREFS_LATCHED = "latched";
     public static final String PREFS_SAMPLE_BOTH = "sample_both";
+    public static final String PREFS_PLAY_MUSIC = "play_music";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -26,14 +27,14 @@ public class OpModeConfiguration {
         editor = sharedPreferences.edit();
     }
 
-    public AllianceColor getAllianceColor() {
-        return AllianceColor.fromIndex(sharedPreferences.getInt(PREFS_COLOR, 0));
-    }
-
-    public void setAllianceColor(AllianceColor color) {
-        editor.putInt(PREFS_COLOR, color.getIndex());
-        editor.commit();
-    }
+//    public AllianceColor getAllianceColor() {
+//        return AllianceColor.fromIndex(sharedPreferences.getInt(PREFS_COLOR, 0));
+//    }
+//
+//    public void setAllianceColor(AllianceColor color) {
+//        editor.putInt(PREFS_COLOR, color.getIndex());
+//        editor.commit();
+//    }
 
     public StartLocation getStartLocation() {
         return StartLocation.fromIndex(sharedPreferences.getInt(PREFS_LOCATION, 0));
@@ -54,24 +55,24 @@ public class OpModeConfiguration {
         editor.commit();
     }
 
-    public MatchType getMatchType() {
-        return MatchType.fromIndex(sharedPreferences.getInt(PREFS_MATCH_TYPE, 0));
-    }
-
-    public void setMatchType (MatchType type) {
-        editor.putInt(PREFS_MATCH_TYPE, type.getIndex());
-        editor.commit();
-    }
-
-    public int getMatchNumber() {
-        return sharedPreferences.getInt(PREFS_MATCH_NUMBER, 0);
-    }
-
-    public void setMatchNumber (int num) {
-        num = num > 0 ? num : 1;
-        editor.putInt(PREFS_MATCH_NUMBER, num);
-        editor.commit();
-    }
+//    public MatchType getMatchType() {
+//        return MatchType.fromIndex(sharedPreferences.getInt(PREFS_MATCH_TYPE, 0));
+//    }
+//
+//    public void setMatchType (MatchType type) {
+//        editor.putInt(PREFS_MATCH_TYPE, type.getIndex());
+//        editor.commit();
+//    }
+//
+//    public int getMatchNumber() {
+//        return sharedPreferences.getInt(PREFS_MATCH_NUMBER, 0);
+//    }
+//
+//    public void setMatchNumber (int num) {
+//        num = num > 0 ? num : 1;
+//        editor.putInt(PREFS_MATCH_NUMBER, num);
+//        editor.commit();
+//    }
 
     public boolean getLatched() {
         return sharedPreferences.getBoolean(PREFS_LATCHED, false);
@@ -91,4 +92,12 @@ public class OpModeConfiguration {
         editor.commit();
     }
 
+    public boolean getPlayMusic() {
+        return sharedPreferences.getBoolean(PREFS_PLAY_MUSIC, false);
+    }
+
+    public void setPlayMusic(boolean playMusic) {
+        editor.putBoolean(PREFS_PLAY_MUSIC, playMusic);
+        editor.commit();
+    }
 }
