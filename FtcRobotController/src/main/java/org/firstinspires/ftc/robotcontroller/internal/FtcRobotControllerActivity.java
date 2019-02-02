@@ -85,7 +85,6 @@ import com.qualcomm.ftccommon.configuration.RobotConfigFile;
 import com.qualcomm.ftccommon.configuration.RobotConfigFileManager;
 import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.hardware.HardwareFactory;
-import com.qualcomm.hardware.logitech.LogitechGamepadF310;
 import com.qualcomm.robotcore.eventloop.EventLoopManager;
 import com.qualcomm.robotcore.eventloop.opmode.FtcRobotControllerServiceState;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -102,13 +101,9 @@ import com.qualcomm.robotcore.wifi.NetworkType;
 import org.firstinspires.ftc.ftccommon.external.SoundPlayingRobotMonitor;
 import org.firstinspires.ftc.ftccommon.internal.FtcRobotControllerWatchdogService;
 import org.firstinspires.ftc.ftccommon.internal.ProgramAndManageActivity;
-import org.firstinspires.ftc.robotcontroller.internal.configuration.OpModeConfigurationActivity;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraFrame;
 import org.firstinspires.ftc.robotcore.external.navigation.MotionDetection;
 import org.firstinspires.ftc.robotcore.internal.hardware.DragonboardLynxDragonboardIsPresentPin;
-import org.firstinspires.ftc.robotcore.internal.network.DeviceNameManager;
 import org.firstinspires.ftc.robotcore.internal.network.DeviceNameManagerFactory;
-import org.firstinspires.ftc.robotcore.internal.network.WifiDirectDeviceNameManager;
 import org.firstinspires.ftc.robotcore.internal.network.PreferenceRemoterRC;
 import org.firstinspires.ftc.robotcore.internal.network.StartResult;
 import org.firstinspires.ftc.robotcore.internal.network.WifiMuteEvent;
@@ -127,7 +122,6 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -176,6 +170,7 @@ public class FtcRobotControllerActivity extends Activity
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
   protected WifiMuteStateMachine wifiMuteStateMachine;
+
   protected MotionDetection motionDetection;
 
   private CameraBridgeViewBase cameraView;
@@ -599,7 +594,7 @@ public class FtcRobotControllerActivity extends Activity
       return true;
     }
     else if (id == R.id.action_configure_opmode) {
-      Intent configIntent = new Intent(AppUtil.getDefContext(), OpModeConfigurationActivity.class);
+      Intent configIntent = new Intent(this, OpModeConfigurationActivity.class);
       startActivity(configIntent);
       return true;
     }

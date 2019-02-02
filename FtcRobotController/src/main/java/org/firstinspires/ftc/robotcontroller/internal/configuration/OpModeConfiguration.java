@@ -19,10 +19,8 @@ public class OpModeConfiguration {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private Context context;
 
     public OpModeConfiguration (Context context) {
-        this.context = context;
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }

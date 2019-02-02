@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.internal.configuration;
+package org.firstinspires.ftc.robotcontroller.internal;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.Switch;
 import com.qualcomm.ftcrobotcontroller.R;
 import com.sun.tools.javac.comp.Check;
 
+import org.firstinspires.ftc.robotcontroller.internal.configuration.OpModeConfiguration;
+import org.firstinspires.ftc.robotcontroller.internal.configuration.StartLocation;
+
 public class OpModeConfigurationActivity extends Activity {
 
     private OpModeConfiguration configuration;
@@ -22,7 +25,7 @@ public class OpModeConfigurationActivity extends Activity {
         configuration = new OpModeConfiguration(this);
         super.onCreate(savedInstancesState);
 
-        setContentView(findViewById(R.layout.activity_opmode_configuration));
+        setContentView(R.layout.activity_opmode_configuration);
 
         Switch startLocation = (Switch) findViewById(R.id.opmode_start_location);
         Switch latched = (Switch) findViewById(R.id.opmode_start_latched);
