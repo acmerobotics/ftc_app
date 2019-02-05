@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot type="FirstInspires-FTC">
+    <LynxUsbDevice name="portal" serialNumber="DQ2M4GYY" parentModuleAddress="2">
+        <LynxModule name="hub1" port="1">
+            <NeveRest20Gearmotor name="m0" port="0" />
+            <NeveRest20Gearmotor name="m1" port="1" />
+            <NeveRest20Gearmotor name="m2" port="2" />
+            <NeveRest20Gearmotor name="m3" port="3" />
+            <Servo name="diverter" port="0" />
+            <Servo name="spacer" port="1" />
+            <Servo name="dump" port="2" />
+            <Servo name="marker" port="3" />
+            <Servo name="ratchet" port="5" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+        </LynxModule>
+        <LynxModule name="hub2" port="2">
+            <NeveRest20Gearmotor name="liftMotor1" port="0" />
+            <NeveRest20Gearmotor name="liftMotor2" port="1" />
+            <NeveRest20Gearmotor name="intakeMotor" port="2" />
+            <NeveRest20Gearmotor name="rakeMotor" port="3" />
+            <Servo name="rake" port="0" />
+            <Servo name="gate" port="5" />
+            <AnalogInput name="dist" port="1" />
+            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+            <LynxColorSensor name="frontSensor" port="1" bus="1" />
+            <LynxColorSensor name="backSensor" port="2" bus="2" />
+            <DigitalDevice name="liftSensor" port="1" />
+        </LynxModule>
+    </LynxUsbDevice>
+</Robot>
