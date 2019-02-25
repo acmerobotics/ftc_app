@@ -32,11 +32,11 @@ for name in paths:
             x *= scale
             y *= scale
             s = 12 * scale
-            d.ellipse((x-s, y-s, x+s, y+s), fill = (255, 0, 0, 100))
+            #d.ellipse((x-s, y-s, x+s, y+s), fill = (255, 0, 0, 100))
             d.ellipse((x-v, y-v, x+v, y+v), fill = (255, 255, 0))
-            if i%c == 0:
-                d.line(((x, y), (x - math.sin(h) * l, y-math.cos(h) * l)), fill=(0,0,255), width=2)
-            i += 1
+            #if i%c == 0:
+                #d.line(((x, y), (x - math.sin(h) * l, y-math.cos(h) * l)), fill=(0,0,255), width=2)
+            #i += 1
     out = Image.alpha_composite(field, out)
     out.save(dir + name.replace('csv', 'png'))
         
