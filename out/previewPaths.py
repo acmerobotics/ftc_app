@@ -11,11 +11,13 @@ scale = field.size[0] / 144
 #field.save('test.png')
 
 dir = './paths/'
+out = Image.new('RGBA', field.size, (255, 255, 255, 0))
+d = ImageDraw.Draw(out, mode = "RGBA")
 paths = os.listdir(dir)
 for name in paths:
+    if not ('CRATER_CENTER_true' in name or 'DEPOT_LEFT_false' in name): continue
+    print (name)
     if 'png' in name: continue
-    out = Image.new('RGBA', field.size, (255, 255, 255, 0))
-    d = ImageDraw.Draw(out, mode = "RGBA")
     path = open(dir + name, 'r').read()
     segments = path.split('\n\n')
     for segment in segments:
@@ -23,7 +25,7 @@ for name in paths:
         segment = [list(map(float, x.split(','))) for x in segment if len(x) > 2]
         i = 0
         c = 3 
-        l = 100
+        l = 1000
         for y, x, h, v in segment:
             x *= -1
             y *= -1
@@ -31,13 +33,15 @@ for name in paths:
             y += 72
             x *= scale
             y *= scale
+            v /= 2
             s = 12 * scale
             #d.ellipse((x-s, y-s, x+s, y+s), fill = (255, 0, 0, 100))
-            d.ellipse((x-v, y-v, x+v, y+v), fill = (255, 255, 0))
+            if 'CRATER' in name: d.ellipse((x-v, y-v, x+v, y+v), fill = (0, 255, 0))
+            if 'DEPOT' in name: d.ellipse((x-v, y-v, x+v, y+v), fill = (255, 255, 0))
             #if i%c == 0:
-                #d.line(((x, y), (x - math.sin(h) * l, y-math.cos(h) * l)), fill=(0,0,255), width=2)
-            #i += 1
-    out = Image.alpha_composite(field, out)
-    out.save(dir + name.replace('csv', 'png'))
+             #   d.line(((x, y), (x - math.sin(h) * l, y-math.cos(h) * l)), fill=(0,0,255), width=2)
+            i += 1
+out = Image.alpha_composite(field, out)
+out.save(dir + 'nb.png')
         
 

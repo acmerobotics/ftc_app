@@ -131,14 +131,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           android:layout_height="match_parent"
           android:orientation="vertical">
 
-        <org.opencv.android.JavaCameraView
-            android:id="@+id/cameraMonitorViewId"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            />
+        <org.opencv.android.JavaCamera2View
+            android:id="@+id/cameraViewId"
+            android:visibility="invisible"
+            style:show_fps="true"
+            style:camera_id="back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
         <FrameLayout
             android:id="@+id/tfodMonitorViewId"
             android:visibility="gone"

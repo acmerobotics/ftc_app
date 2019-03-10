@@ -120,6 +120,7 @@ import org.firstinspires.ftc.robotcore.internal.webserver.WebServer;
 import org.firstinspires.inspection.RcInspectionActivity;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.JavaCamera2View;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 
@@ -173,31 +174,9 @@ public class FtcRobotControllerActivity extends Activity
 
   protected MotionDetection motionDetection;
 
-  private CameraBridgeViewBase cameraView;
-
     public void onCameraViewStopped () {
       Log.i("opencv", "camera view stopped");
     }
-
-    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
-      @Override
-      public void onManagerConnected(int status) {
-        switch (status) {
-          case LoaderCallbackInterface.SUCCESS:
-          {
-            Log.i("opencv", "OpenCV loaded successfully");
-            cameraView.enableView();
-            cameraView.setCvCameraViewListener(CameraFrameGrabber.getInstance());
-          } break;
-          default:
-          {
-            Log.i("opencv", "some sort of error");
-            super.onManagerConnected(status);
-          } break;
-        }
-      }
-    };
-
 
     protected class RobotRestarter implements Restarter {
 
@@ -372,8 +351,6 @@ public class FtcRobotControllerActivity extends Activity
     }
     FtcDashboard.start();
 
-    cameraView = (CameraBridgeViewBase) findViewById(R.id.cameraMonitorViewId);
-    cameraView.setVisibility(View.VISIBLE);
   }
 
   protected UpdateUI createUpdateUI() {
@@ -415,7 +392,6 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
-    OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, this, mLoaderCallback);
     RobotLog.vv(TAG, "onResume()");
   }
 
@@ -426,7 +402,6 @@ public class FtcRobotControllerActivity extends Activity
     if (programmingModeController.isActive()) {
       programmingModeController.stopProgrammingMode();
     }
-    if (cameraView != null) cameraView.disableView();
   }
 
   @Override
@@ -459,7 +434,6 @@ public class FtcRobotControllerActivity extends Activity
 
     FtcDashboard.stop();
 
-    if (cameraView != null) cameraView.disableView();
   }
 
   protected void bindToService() {
