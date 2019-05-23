@@ -7,5 +7,4 @@ dependencies {
     implementation (name:'WirelessP2p-release', ext:'aar')
     implementation 'com.acmerobotics.dashboard:dashboard:0.1.1'
     implementation project(':OpenCV343')
-
 }

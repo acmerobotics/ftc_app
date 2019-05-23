@@ -2,45 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    tools:context="org.firstinspires.ftc.robotcontroller.internal.OpModeConfigurationActivity"
+    tools:context="com.acmerobotics.lib.config.OpModeConfigurationActivity"
     android:id="@+id/opmode_config"
     android:keepScreenOn="true"
     android:layout_height="match_parent">
-
-    <Switch
-        android:id="@+id/opmode_start_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:showText="true"
-        android:text="@string/opmode_config_start"
-        android:textOff="@string/opmode_config_start_lander"
-        android:textOn="@string/opmode_config_start_crater" />
-
-    <Switch
-        android:id="@+id/opmode_start_latched"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:showText="true"
-        android:text="@string/opmode_latched"
-        android:textOff="@string/opmode_start_deployed"
-        android:textOn="@string/opmode_start_latched" />
-
-    <SeekBar
-        android:id="@+id/opmode_delay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="@integer/opmode_config_delay_max" />
-
-    <CheckBox
-        android:id="@+id/opmode_music"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/opmode_play_music" />
-
-    <CheckBox
-        android:id="@+id/opmode_sample_both"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/opmode_sample_both" />
 
 </LinearLayout>

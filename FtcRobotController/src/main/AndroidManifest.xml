@@ -49,7 +49,7 @@
     </activity>
 
     <activity
-        android:name="org.firstinspires.ftc.robotcontroller.internal.OpModeConfigurationActivity"
+        android:name="com.acmerobotics.lib.config.OpModeConfigurationActivity"
         android:label="OpMode Config" />
 
     <!-- The robot controller service in which most of the robot functionality is managed -->
