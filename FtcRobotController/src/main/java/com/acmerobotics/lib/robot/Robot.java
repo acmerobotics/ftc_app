@@ -4,15 +4,13 @@ import android.util.Log;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.lib.command.Action;
-import com.acmerobotics.lib.command.Scheduler;
-import com.acmerobotics.lib.command.Target;
 import com.acmerobotics.lib.hardware.BulkReadAnalogSensor;
 import com.acmerobotics.lib.hardware.BulkReadDigitalChannel;
 import com.acmerobotics.lib.hardware.CachingDcMotorEx;
 import com.acmerobotics.lib.hardware.CachingHardwareDevice;
 import com.acmerobotics.lib.hardware.CachingSensor;
 import com.acmerobotics.lib.hardware.CachingServo;
+import com.acmerobotics.lib.run.Target;
 import com.qualcomm.hardware.lynx.LynxModuleIntf;
 import com.qualcomm.hardware.lynx.commands.core.LynxGetBulkInputDataCommand;
 import com.qualcomm.hardware.lynx.commands.core.LynxGetBulkInputDataResponse;
@@ -56,7 +54,7 @@ public abstract class Robot {
     private Map<String, Object> telemetry;
     private List<String> telemetryLines;
 
-    private Scheduler scheduler;
+    private Target target = Target.getHalt();
 
     public Robot (ScheduledOpMode opmode, HardwareMap map) {
         this.map = map;
@@ -77,7 +75,6 @@ public abstract class Robot {
 
         subsystems = new ArrayList<>();
 
-        scheduler = new Scheduler();
     }
 
     public void addTelemetry (String caption, Object value) {
@@ -122,9 +119,7 @@ public abstract class Robot {
 
     private void updateSubsystems () {
         TelemetryPacket packet = new TelemetryPacket();
-        for (Subsystem subsystem: subsystems) {
-            subsystem.update(packet);
-        }
+        target.update(packet);
         packet.putAll(telemetry);
         for (String line: telemetryLines) packet.addLine(line);
         FtcDashboard.getInstance().sendTelemetryPacket(packet);
@@ -135,18 +130,6 @@ public abstract class Robot {
         updateCachingSensors();
         updateSubsystems();
         updateCachingHardwareDevices();
-    }
-
-    public void waitUpon (Target target) {
-        scheduler.waitUpon(target, this::update, opmode::stopRequested);
-    }
-
-    public void executeUpon (Target target, Action action) {
-        scheduler.executeUpon(target, action);
-    }
-
-    public void clearScheduler () {
-        scheduler.clear();
     }
 
     public DcMotorEx getMotor (String deviceName) {
