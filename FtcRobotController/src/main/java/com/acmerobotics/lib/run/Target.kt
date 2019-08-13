@@ -11,15 +11,15 @@ open class Target (var action: (TelemetryPacket) -> Boolean = {true}) {
     }
 
     private val dependencies = mutableListOf<Target>()
-    private val dependenciesPost = mutableListOf<Target>()
+    private val conflicts = mutableListOf<Target>()
 
     fun require (target: Target) : Target {
         dependencies.add(target)
         return this
     }
 
-    fun requirePost (target: Target) : Target{
-        dependenciesPost.add(target)
+    fun conflictsWith (target: Target) : Target {
+        conflicts.add(target)
         return this
     }
 
@@ -36,9 +36,6 @@ open class Target (var action: (TelemetryPacket) -> Boolean = {true}) {
 
         if (action(packet)) action = {false}
         else return false
-
-        return (removeUntilAllTrue(dependenciesPost, packet))
-
     }
 
 }

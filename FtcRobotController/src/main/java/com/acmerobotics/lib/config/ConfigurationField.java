@@ -8,11 +8,11 @@ import java.lang.reflect.Field;
 
 public abstract class ConfigurationField {
     protected Field field;
-    protected SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
 
     protected ConfigurationField () {}
 
-    public ConfigurationField (Field field, SharedPreferences preferences) {
+    ConfigurationField(Field field, SharedPreferences preferences) {
         this.field = field;
         this.sharedPreferences = preferences;
     }
@@ -21,19 +21,19 @@ public abstract class ConfigurationField {
 
     public abstract void apply (Object object);
 
-    protected void putString (String key, String value) {
+    void putString(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    protected void putBoolean (String key, boolean value) {
+    void putBoolean(String key, boolean value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
 
-    protected void putInt (String key, int value) {
+    void putInt(String key, int value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
         editor.apply();
